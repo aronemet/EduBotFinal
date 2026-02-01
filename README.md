@@ -78,7 +78,35 @@ Perfect for schools - prevents cheating while promoting actual learning.
 - Frontend on Vercel (free)
 - Backend on Render (free)
 
-### Option 3: Netlify + Railway
+### Option 3: Railway (Alternative to Render)
+
+1. **Create a GitHub repository** with your code (make sure to exclude the large .gguf file using .gitignore)
+
+2. **Sign up for Railway** (free account)
+
+3. **Deploy backend:**
+   - Go to Railway.app and create a new "Project"
+   - Connect your GitHub repository
+   - Configure:
+     - Build Command: `pip install -r backend/requirements.txt`
+     - Start Command: `uvicorn backend.main:app --host 0.0.0.0 --port $PORT`
+     - Environment Variables:
+       - `HUGGINGFACE_TOKEN`: Your Hugging Face API token
+       - `MODEL_NAME`: `Qwen/Qwen2.5-1.5B-Instruct`
+
+4. **Deploy frontend:**
+   - You can deploy frontend to Railway as a static site or use Netlify/Vercel
+   - For Railway static site:
+     - Create a new "Static Site" service
+     - Connect your GitHub repository
+     - Configure:
+       - Build Command: `echo "Static site ready"`
+       - Publish Directory: `frontend`
+
+5. **Update API endpoint:**
+   - In `frontend/script.js`, update the deployed API URL to your Railway backend URL
+
+### Option 4: Netlify + Railway
 
 - Frontend on Netlify (free)
 - Backend on Railway (free)

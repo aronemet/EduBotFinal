@@ -1,0 +1,42 @@
+# Railway deployment configuration
+[deploy]
+  # The main entry point for your application
+  # For Python with FastAPI, we use uvicorn
+  startCommand = "uvicorn backend.main:app --host 0.0.0.0 --port $PORT"
+
+[build]
+  # Build command for your application
+  buildCommand = "pip install -r backend/requirements.txt"
+
+[vars]
+  # Required environment variables
+  HUGGINGFACE_TOKEN = "your_huggingface_api_token"
+  MODEL_NAME = "Qwen/Qwen2.5-1.5B-Instruct"
+  MAX_TOKENS = "512"
+  TEMPERATURE = "0.5"
+  TOP_P = "0.8"
+  TOP_K = "30"
+
+[services]
+  [services.backend]
+    type = "web"
+    runtime = "python"
+    buildCommand = "pip install -r backend/requirements.txt"
+    startCommand = "uvicorn backend.main:app --host 0.0.0.0 --port $PORT"
+    plan = "free"
+    healthCheckPath = "/health"
+    healthCheckTimeout = 30
+    healthCheckInterval = 10
+
+  [services.frontend]
+    type = "static"
+    buildCommand = "echo 'Static site ready'"
+    publishPath = "frontend"
+    plan = "free"
+
+[network]
+  [network.backend]
+    port = 8001
+
+  [network.frontend]
+    port = 80
