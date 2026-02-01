@@ -57,7 +57,7 @@ Perfect for schools - prevents cheating while promoting actual learning.
    - Go to Render.com and create a new "Web Service"
    - Connect your GitHub repository
    - Configure:
-     - Build Command: `pip3 install -r backend/requirements.txt`
+     - Build Command: `python -m pip install -r backend/requirements.txt`
      - Start Command: `gunicorn -w 4 -k uvicorn.workers.UvicornWorker backend.main:app`
      - Environment Variables:
        - `HUGGINGFACE_TOKEN`: Your Hugging Face API token
@@ -88,7 +88,7 @@ Perfect for schools - prevents cheating while promoting actual learning.
    - Go to Railway.app and create a new "Project"
    - Connect your GitHub repository
    - Configure:
-     - Build Command: `pip3 install -r backend/requirements.txt`
+     - Build Command: `python -m pip install -r backend/requirements.txt`
      - Start Command: `uvicorn backend.main:app --host 0.0.0.0 --port $PORT`
      - Environment Variables:
        - `HUGGINGFACE_TOKEN`: Your Hugging Face API token
