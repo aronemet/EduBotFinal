@@ -6,7 +6,7 @@
 
 [build]
   # Build command for your application
-  buildCommand = "python -m pip install -r backend/requirements.txt"
+  buildCommand = "python3 -m pip install -r backend/requirements.txt"
 
 [vars]
   # Required environment variables
@@ -21,7 +21,7 @@
   [services.backend]
     type = "web"
     runtime = "python"
-    buildCommand = "python -m pip install -r backend/requirements.txt"
+    buildCommand = "python3 -m pip install -r backend/requirements.txt"
     startCommand = "uvicorn backend.main:app --host 0.0.0.0 --port $PORT"
     plan = "free"
     healthCheckPath = "/health"
