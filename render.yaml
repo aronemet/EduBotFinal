@@ -1,0 +1,25 @@
+# Render.com deployment configuration
+services:
+  - type: web
+    name: edubot-backend
+    runtime: python
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: gunicorn -w 4 -k uvicorn.workers.UvicornWorker backend.main:app
+    envVars:
+      - key: HUGGINGFACE_TOKEN
+        sync: false
+      - key: MODEL_NAME
+        value: Qwen/Qwen2.5-1.5B-Instruct
+    plan: free
+    region: oregon # Choose your region
+    healthCheckPath: /health
+
+  - type: static_site
+    name: edubot-frontend
+    buildCommand: echo "Static site ready"
+    publishPath: frontend
+    plan: free
+    region: oregon # Choose your region
+    envVars:
+      - key: API_BASE_URL
+        value: https://edubot-backend.onrender.com
